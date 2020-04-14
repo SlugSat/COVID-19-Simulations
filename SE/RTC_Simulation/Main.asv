@@ -1,9 +1,9 @@
 close all;
 clear all;
-clc;
+cl
 % time array
 t = linspace(0,63072000,63072000);
-temp = randi([-40 85], 1,length(t))+zeros(1, length(t));
+temp = randi([-40 85]).*ones(1, 63072000);
 
 % Frequency Aging Variables/Scenarios
 [a_t, b_t, c_t, Max, Min] = frequency_aging(t);
@@ -38,33 +38,4 @@ c_t = a_t + b_t;
 % Linear Case 
 Max = 1/length(t).* t;
 Min = -1/length(t).* t;
-end
-
-function
-T = 120;
-f = 1/T;
-freq_stab_curve = 0.28*sin(2*pi*f.*(temp + 35));
-
-% Frequency Stability + Frequency Tolerance
-freq_drift_max = freq_stab_curve + 0.5;
-freq_drift_min = freq_stab_curve - 0.5;
-
-% Actual Total Short term Stability
-freq_drift_temp = zeros(1, length(temp));
-ii = 1;
-while ii <= length(temp)
-    freq_drift_temp(ii) = freq_stab_curve(ii) + 0.01*randi([-50 50]); 
-    ii = ii +1;
-end
-
-total_min = 0.78*(ones(1,length(temp)));
-total_max = -0.78*(ones(1,length(temp)));
-
-freq_drift_rand = zeros(1, length(temp));
-ii = 1;
-while ii <= length(temp)
-    freq_drift_rand(ii) = 0.0078*randi([-100 100]);
-    ii = ii+1;
-end
-
 end
