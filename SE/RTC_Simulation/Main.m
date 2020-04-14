@@ -4,24 +4,24 @@ clc;
 % time array
 t = linspace(0,63072000,63072000);
 temp = randi([-40 85], 1,length(t))+zeros(1, length(t));
+[stab_tol_values_rand, stab_tol_values_temp] = stab_tol(temp);
 
 % Frequency Aging Variables/Scenarios
 [a_t, b_t, c_t, Max, Min] = frequency_aging(t);
 
+Temp1 = a_t + stab_tol_values_temp;
+
 % Plots
 figure;
-plot(t, a_t, 'g');
+plot(t, a_t, 'r--');
 hold on
-plot(t, b_t, 'b');
-plot(t, c_t, 'y');
-plot(t, Max, 'r--');
-plot(t, Min, 'r--');
+plot(t, Temp1, 'b');
 ylim([-2 2]);
-xlim([1 63072000]);
-title("Frequency Aging");
+xlim([1 30]);
+title("Frequency Aging/Tolerance/Stability");
 ylabel("Frequency Aging Deviation [ppm]");
 xlabel("Time [seconds]");
-legend("Stress Dominant", "Contamination Dominant", "Sum of Both", "Linear Case");
+legend("Aging", "Total");
 
 function [a_t, b_t, c_t, Max, Min] = frequency_aging(t)
 % Frequency Aging with Stress as Dominating Factor
@@ -40,31 +40,16 @@ Max = 1/length(t).* t;
 Min = -1/length(t).* t;
 end
 
-function
+function [stab_tol_values_rand, stab_tol_values_temp] = stab_tol(temp)
+
 T = 120;
 f = 1/T;
-freq_stab_curve = 0.28*sin(2*pi*f.*(temp + 35));
-
-% Frequency Stability + Frequency Tolerance
-freq_drift_max = freq_stab_curve + 0.5;
-freq_drift_min = freq_stab_curve - 0.5;
-
-% Actual Total Short term Stability
-freq_drift_temp = zeros(1, length(temp));
 ii = 1;
+stab_tol_values_temp = zeros(1, length(temp));
 while ii <= length(temp)
-    freq_drift_temp(ii) = freq_stab_curve(ii) + 0.01*randi([-50 50]); 
-    ii = ii +1;
+    stab_tol_values_temp(ii) = 0.28*sin(2*pi*f.*(temp(ii) + 35)) + 0.005*randi([-100 100]);
+    ii = ii + 1;
 end
 
-total_min = 0.78*(ones(1,length(temp)));
-total_max = -0.78*(ones(1,length(temp)));
-
-freq_drift_rand = zeros(1, length(temp));
-ii = 1;
-while ii <= length(temp)
-    freq_drift_rand(ii) = 0.0078*randi([-100 100]);
-    ii = ii+1;
-end
-
+stab_tol_values_rand = 0.0078.*randi([-100 100], 1, length(temp));
 end
