@@ -8,7 +8,7 @@ clear all;
 clc;
 
 % Operating Temperature Range 
-temp = linspace(-40, 85, 120);
+temp = linspace(-40, 85, 126);
 
 % Frequency Stability Curve
 T = 120;
@@ -20,9 +20,9 @@ freq_drift_max = freq_stab_curve + 0.5;
 freq_drift_min = freq_stab_curve - 0.5;
 
 % Actual Total Short term Stability
-freq_drift_temp = zeros(1, T);
+freq_drift_temp = zeros(1, length(temp));
 ii = 1;
-while ii <= T
+while ii <= length(temp)
     freq_drift_temp(ii) = freq_stab_curve(ii) + 0.01*randi([-50 50]); 
     ii = ii +1;
 end
