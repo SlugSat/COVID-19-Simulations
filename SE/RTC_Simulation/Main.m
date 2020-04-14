@@ -10,7 +10,15 @@ temp = randi([-40 85], 1,length(t))+zeros(1, length(t));
 [a_t, b_t, c_t, Max, Min] = frequency_aging(t);
 
 Temp1 = a_t + stab_tol_values_temp;
-total_drift_sec = trapz(Temp1)/(10^6)
+Temp2 = b_t + stab_tol_values_temp;
+Temp3 = c_t + stab_tol_values_temp;
+Temp4 = Min + stab_tol_values_temp;
+Temp5 = Max + stab_tol_values_temp;
+total_drift_sec_a = trapz(Temp1)/(10^6)
+total_drift_sec_b = trapz(Temp2)/(10^6)
+total_drift_sec_c = trapz(Temp3)/(10^6)
+total_drift_sec_Min = trapz(Temp4)/(10^6)
+total_drift_sec_Max = trapz(Temp5)/(10^6)
 
 % Plots
 figure;
