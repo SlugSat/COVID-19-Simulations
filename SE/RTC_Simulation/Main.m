@@ -1,3 +1,4 @@
+
 close all;
 clear all;
 clc;
@@ -25,8 +26,8 @@ figure;
 plot(t, a_t, 'r--');
 hold on
 plot(t, Temp1, 'b');
-ylim([-2 2]);
-xlim([1 30]);
+ylim([-1 1]);
+xlim([1 50]);
 title("Frequency Aging/Tolerance/Stability");
 ylabel("Frequency Aging Deviation [ppm]");
 xlabel("Time [seconds]");
