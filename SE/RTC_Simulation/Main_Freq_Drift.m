@@ -4,14 +4,7 @@ clear all;
 clc;
 % time array
 t = linspace(0,63072000,63072000);
-
-% Craft Temperature Cycle
-T = 5400;       %Period of Temperature Change
-f = 1/T;
-D = 66;     %Duty Cycle of Temperature Square Wave
-temp = 62.5*square(2*pi*f.*t, D) + 22.5;  %Craft Temperature over 2 years
-
-% Frequency Stability/Tolerance 
+temp = randi([-40 85], 1,length(t))+zeros(1, length(t));
 [stab_tol_values_rand, stab_tol_values_temp] = stab_tol(temp);
 
 % Frequency Aging Variables/Scenarios
@@ -36,7 +29,7 @@ plot(t, Temp1, 'b');
 ylim([-1 1]);
 xlim([1 50]);
 title("Frequency Aging/Tolerance/Stability");
-ylabel("Frequency Deviation [ppm]");
+ylabel("Frequency Aging Deviation [ppm]");
 xlabel("Time [seconds]");
 legend("Aging", "Total");
 
