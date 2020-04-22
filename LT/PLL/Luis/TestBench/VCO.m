@@ -4,13 +4,13 @@ VCOs;
 
 %%
 simt = 1/100000;
-sampt = 5e-10;
+sampt = 1e-9;
 
 %% Load Simulink Data
 
 out = sim('VCOs');
 
-load('VCOtofile.mat');
+% load('VCOtofile.mat');
 
 % sizeOfMatrix = size(out.tout, 1)
 
@@ -42,20 +42,36 @@ temp = load('VCOtofile.mat');
 % 
 % freq = (y(2) - y(1))^(-1)
 
-subplot(2, 1, 1)
+subplot(2, 2, 1)
 plot(tout2, VCOsimout)
-xlim([0 simt/5]);
+xlim([0 (simt/35)]);
 xlabel('time')
 ylabel('VCO Amplitude')
-legend('VCOsimout')
+legend('VCO frquency = xx.x')
 hold on
 
-subplot(2, 1, 2)
+subplot(2, 2, 2)
 plot(tout2, VCOsimout)
-xlim([3*simt/5 (4*simt/5)]);
+xlim([(simt/35) ((simt/35)+(2*simt/35))]);
 xlabel('time')
 ylabel('VCO Amplitude')
-legend('VCOsimout')
+legend('VCO frquency = xx.x')
+hold on
+
+subplot(2, 2, 3)
+plot(tout2, VCOsimout)
+xlim([(3*simt/35) ((3*simt/35)+(4*simt/50))]);
+xlabel('time')
+ylabel('VCO Amplitude')
+legend('VCO frquency = xx.x')
+hold on
+
+subplot(2, 2, 4)
+plot(tout2, VCOsimout)
+xlim([(4*simt/50) ((4*simt/50)+(5*simt/50))]);
+xlabel('time')
+ylabel('VCO Amplitude')
+legend('VCO frquency = xx.x')
 hold on
 
 % plot(y(1), x(1), '-o');
