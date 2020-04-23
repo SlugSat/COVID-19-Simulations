@@ -1,0 +1,23 @@
+% Simulated Craft Altitiude rev1.0 4/17/20
+% Slugsat Science Experiment Subteam
+% Tomohiro Shimada
+
+%%
+close all;
+clear all;
+clc; 
+
+altitudes = [100 200 300 400 500 600 700 800 900];
+T = 5400;
+t = 63072000;
+craft_altitude_period_n = randi([1 9], 1, t/T).*100;
+
+lifetime_altitude = zeros(1, t);
+ii = 1;
+while ii <=t/T
+    lifetime_altitude(ii:ii+5400) = (craft_altitude_period_n(ii+1)-craft_altitude_period_n(ii))/((ii-1)
+end
+
+        
+        
+        

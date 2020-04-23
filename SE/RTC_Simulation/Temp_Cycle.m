@@ -15,5 +15,5 @@ temp_cycle = 62.5*square(2*pi*f.*t, D) + 22.5;
 
 figure; plot(t, temp_cycle);
 title("Simplified Max/Min Craft Temperature Cycle");
-xlim([0 100000]); ylim([-100 120]);
+xlim([0 5400]); ylim([-100 120]);
 xlabel("Time (seconds)"); ylabel("Craft Temperature [C]");
