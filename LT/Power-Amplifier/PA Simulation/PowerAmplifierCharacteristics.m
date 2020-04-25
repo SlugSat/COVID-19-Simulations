@@ -20,8 +20,8 @@ realGain0 = 7.5;
 linearGain0 = realGain0*ones(1, length(input));
 P1dBrev0 = gain0 - linearGain0;
 
-figure(1);
-plot(input, rev0, '-o', 'color', 'b', 'MarkerSize', 4, 'MarkerEdgeColor','k' , 'MarkerFaceColor', 'k');
+%figure(1);
+%plot(input, rev0, '-o', 'color', 'b', 'MarkerSize', 4, 'MarkerEdgeColor','k' , 'MarkerFaceColor', 'k');
 
 xlabel('Input Power [dBm]');
 ylabel('Output Power [dBm]');
@@ -37,8 +37,8 @@ realGain1 = 9;
 linearGain1 = realGain1*ones(1, length(input));
 P1dBrev1 = gain1 - linearGain1;
 
-figure(2);
-plot(input, rev1, '-o', 'color', 'b', 'MarkerSize', 4, 'MarkerEdgeColor','k' , 'MarkerFaceColor', 'k');
+%figure(2);
+%plot(input, rev1, '-o', 'color', 'b', 'MarkerSize', 4, 'MarkerEdgeColor','k' , 'MarkerFaceColor', 'k');
 
 xlabel('Input Power [dBm]');
 ylabel('Output Power [dBm]');
@@ -54,8 +54,8 @@ realGain2 = 8.2;
 linearGain2 = realGain2*ones(1, length(input));
 P1dBrev2 = gain2 - linearGain2;
 
-figure(3);
-plot(input, rev2, '-o', 'color', 'b', 'MarkerSize', 4, 'MarkerEdgeColor','k' , 'MarkerFaceColor', 'k');
+%figure(3);
+%plot(input, rev2, '-o', 'color', 'b', 'MarkerSize', 4, 'MarkerEdgeColor','k' , 'MarkerFaceColor', 'k');
 
 xlabel('Input Power [dBm]');
 ylabel('Output Power [dBm]');
@@ -71,8 +71,8 @@ realGain3 = -19.2;
 linearGain3 = realGain3*ones(1, length(input));
 P1dBrev3 = gain3 - linearGain3;
 
-figure(4);
-plot(input, rev3, '-o', 'color', 'b', 'MarkerSize', 4, 'MarkerEdgeColor','k' , 'MarkerFaceColor', 'k');
+%figure(4);
+%plot(input, rev3, '-o', 'color', 'b', 'MarkerSize', 4, 'MarkerEdgeColor','k' , 'MarkerFaceColor', 'k');
 
 xlabel('Input Power [dBm]');
 ylabel('Output Power [dBm]');
@@ -88,8 +88,8 @@ realGain4 = 0.03;
 linearGain4 = realGain4*ones(1, length(input));
 P1dBrev4 = gain4 - linearGain4;
 
-figure(5);
-plot(input, rev4, '-o', 'color', 'b', 'MarkerSize', 4, 'MarkerEdgeColor','k' , 'MarkerFaceColor', 'k');
+%figure(5);
+%plot(input, rev4, '-o', 'color', 'b', 'MarkerSize', 4, 'MarkerEdgeColor','k' , 'MarkerFaceColor', 'k');
 
 xlabel('Input Power [dBm]');
 ylabel('Output Power [dBm]');
@@ -105,7 +105,7 @@ realGain5 = 1.45;
 linearGain5 = realGain5*ones(1, length(input));
 P1dBrev5 = gain5 - linearGain5;
 
-figure(6);
+figure(2);
 plot(input, rev5, '-o', 'color', 'b', 'MarkerSize', 4, 'MarkerEdgeColor','k' , 'MarkerFaceColor', 'k');
 
 xlabel('Input Power [dBm]');
@@ -122,8 +122,8 @@ realGain6 = -0.54;
 linearGain6 = realGain6*ones(1, length(input));
 P1dBrev6 = gain6 - linearGain6;
 
-figure(7);
-plot(input, rev6, '-o', 'color', 'b', 'MarkerSize', 4, 'MarkerEdgeColor','k' , 'MarkerFaceColor', 'k');
+%figure(7);
+%plot(input, rev6, '-o', 'color', 'b', 'MarkerSize', 4, 'MarkerEdgeColor','k' , 'MarkerFaceColor', 'k');
 
 xlabel('Input Power [dBm]');
 ylabel('Output Power [dBm]');
@@ -139,8 +139,8 @@ realGain7 = 2.77;
 linearGain7 = realGain7*ones(1, length(input));
 P1dBrev7 = gain7 - linearGain7;
 
-figure(8);
-plot(input, rev7, '-o', 'color', 'b', 'MarkerSize', 4, 'MarkerEdgeColor','k' , 'MarkerFaceColor', 'k');
+%figure(8);
+%plot(input, rev7, '-o', 'color', 'b', 'MarkerSize', 4, 'MarkerEdgeColor','k' , 'MarkerFaceColor', 'k');
 
 xlabel('Input Power [dBm]');
 ylabel('Output Power [dBm]');
@@ -150,7 +150,7 @@ grid on
 grid minor
 %% Rev 3.0 to Rev 3.7
 
-figure(9)
+figure(1)
 hold on
 
 %Rev 3.3 is omitted from the plot
