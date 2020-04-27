@@ -16,7 +16,7 @@ r_earth = 6378*10^3;
 r_sat = 600*10^3;
 
 % Time Dilation
-total_TD = TD_calculation(r_earth, r_sat, t);
+total_TD = 
 
 % Frequency Stability/Tolerance 
 [stab_tol_values_rand, stab_tol_values_temp] = stab_tol(temp);
@@ -24,11 +24,11 @@ total_TD = TD_calculation(r_earth, r_sat, t);
 % Frequency Aging Variables/Scenarios
 [a_t, b_t, c_t, Max, Min] = frequency_aging(t);
 
-Temp1 = a_t + stab_tol_values_temp + total_TD;
-Temp2 = b_t + stab_tol_values_temp + total_TD;
-Temp3 = c_t + stab_tol_values_temp + total_TD;
-Temp4 = Min + stab_tol_values_temp + total_TD;
-Temp5 = Max + stab_tol_values_temp + total_TD;
+Temp1 = a_t + stab_tol_values_temp;
+Temp2 = b_t + stab_tol_values_temp;
+Temp3 = c_t + stab_tol_values_temp;
+Temp4 = Min + stab_tol_values_temp;
+Temp5 = Max + stab_tol_values_temp;
 total_drift_sec_a = trapz(Temp1)/(10^6)
 total_drift_sec_b = trapz(Temp2)/(10^6)
 total_drift_sec_c = trapz(Temp3)/(10^6)
@@ -71,7 +71,7 @@ f = 1/T;
 ii = 1;
 stab_tol_values_temp = zeros(1, length(temp));
 while ii <= length(temp)
-    stab_tol_values_temp(ii) = -0.28*sin(2*pi*f.*(temp(ii) + 35)) + 0.005*randi([-100 100]);
+    stab_tol_values_temp(ii) = 0.28*sin(2*pi*f.*(temp(ii) + 35)) + 0.005*randi([-100 100]);
     ii = ii + 1;
 end
 
@@ -92,6 +92,4 @@ Norm_SR_TD = SR_TD - t;
 %General Relativity
 GR_TD = (1-G*M/c^2*(1/r_earth-1/(r_earth+r_sat)))*t;
 Norm_GR_TD = GR_TD - t;
-
-total_TD = Norm_SR_TD - Norm_GR_TD;
 end
