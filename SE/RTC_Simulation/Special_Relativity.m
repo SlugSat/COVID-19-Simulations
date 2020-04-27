@@ -22,7 +22,7 @@ SR_TD = t*TDF;
 Norm_SR_TD = SR_TD - t;
 
 %General Relativity
-GR_TD = (1-G*M/c^2*(1/r_earth-1/r_sat))*t;
+GR_TD = (1-G*M/c^2*(1/r_earth-1/(r_earth+r_sat)))*t;
 Norm_GR_TD = GR_TD - t;
 
 
@@ -30,3 +30,4 @@ figure;
 plot(t, Norm_SR_TD);
 hold on;
 plot(t, Norm_GR_TD);
+legend("Special Relativity", "General Relativity");
