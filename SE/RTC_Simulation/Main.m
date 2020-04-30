@@ -57,15 +57,18 @@ running_total_5 = running_total_5./10^6 + total_TD;
 
 % Plots
 figure;
-plot(t, running_total_1, 'r--');
+plot(t, running_total_1, 'g');
 hold on
 plot(t, running_total_2, 'b');
+plot(t, running_total_3, 'k');
+plot(t, running_total_4, 'r');
+plot(t, running_total_5, 'r');
 %ylim([-0.00001 0.00001]);
 xlim([0 63072000]);
 title("Frequency Aging/Tolerance/Stability");
-ylabel("Frequency Deviation [ppm]");
+ylabel("Drfit in Seconds");
 xlabel("Time [seconds]");
-legend("Aging", "Total");
+legend("Stress", "Contamination", "Sum", "Min/Max");
 
 function [a_t, b_t, c_t, Max, Min] = frequency_aging(t)
 % Frequency Aging with Stress as Dominating Factor
