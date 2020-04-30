@@ -49,19 +49,19 @@ while ii <= length(t)
    running_total_5(ii) = running_total_5(ii-1) + Temp5(ii);
    ii = ii+1;
 end
-running_total_1 = running_total_1./10^6;
-running_total_2 = running_total_2./10^6;
-running_total_3 = running_total_3./10^6;
-running_total_4 = running_total_4./10^6;
-running_total_5 = running_total_5./10^6;
+running_total_1 = running_total_1./10^6 + total_TD;
+running_total_2 = running_total_2./10^6 + total_TD;
+running_total_3 = running_total_3./10^6 + total_TD;
+running_total_4 = running_total_4./10^6 + total_TD;
+running_total_5 = running_total_5./10^6 + total_TD;
 
 % Plots
 figure;
-plot(t, a_t, 'r--');
+plot(t, running_total_1, 'r--');
 hold on
-plot(t, running_total_1, 'b');
-ylim([-0.00001 0.00001]);
-xlim([0 10]);
+plot(t, running_total_2, 'b');
+%ylim([-0.00001 0.00001]);
+xlim([0 63072000]);
 title("Frequency Aging/Tolerance/Stability");
 ylabel("Frequency Deviation [ppm]");
 xlabel("Time [seconds]");
