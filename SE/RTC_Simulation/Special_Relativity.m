@@ -10,7 +10,7 @@ clc;
 % Variable Definition
 t = linspace(0,63072000,63072000);
 r_earth = 6378*10^3;
-r_sat = 600*10^3;
+r_sat = 20000*10^3;
 G = 6.67*10^-11;
 M = 5.98*10^24;
 c = 3.0*10^8;
@@ -30,4 +30,9 @@ figure;
 plot(t, Norm_SR_TD);
 hold on;
 plot(t, Norm_GR_TD);
+xlim([0 63072000]);
+title("Relativistic Effects on GPS Clock");
+xlabel("Time (seconds)");
+ylabel("Drift (Seconds)");
 legend("Special Relativity", "General Relativity");
+
