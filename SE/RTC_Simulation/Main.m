@@ -55,6 +55,15 @@ running_total_3 = running_total_3./10^6 + total_TD;
 running_total_4 = running_total_4./10^6 + total_TD;
 running_total_5 = running_total_5./10^6 + total_TD;
 
+%%
+% Simulated downlink (1 per day)
+downlinked_data = running_total_2(1:86400:end);
+t_DL = linspace(0,63072000, 730);
+
+figure;
+stem(t_DL, downlinked_data);
+xlim([0 86400*4]);
+%%
 % Plots
 figure;
 plot(t, running_total_1, 'g');
@@ -63,12 +72,15 @@ plot(t, running_total_2, 'b');
 plot(t, running_total_3, 'k');
 plot(t, running_total_4, 'r');
 plot(t, running_total_5, 'r');
-%ylim([-0.00001 0.00001]);
+%ylim([-0.003 0.003]);
 xlim([0 63072000]);
 title("Frequency Aging/Tolerance/Stability");
 ylabel("Drfit in Seconds");
 xlabel("Time [seconds]");
 legend("Stress", "Contamination", "Sum", "Min/Max");
+
+%%
+% Functions
 
 function [a_t, b_t, c_t, Max, Min] = frequency_aging(t)
 % Frequency Aging with Stress as Dominating Factor
@@ -94,7 +106,7 @@ f = 1/T;
 ii = 1;
 stab_tol_values_temp = zeros(1, length(temp));
 while ii <= length(temp)
-    stab_tol_values_temp(ii) = -0.28*sin(2*pi*f.*(temp(ii) + 35)) + 0.005*randi([-100 100]);
+    stab_tol_values_temp(ii) = -0.28*sin(2*pi*f.*(temp(ii) + 35)) + 0.015*randi([-100 100]);
     ii = ii + 1;
 end
 
