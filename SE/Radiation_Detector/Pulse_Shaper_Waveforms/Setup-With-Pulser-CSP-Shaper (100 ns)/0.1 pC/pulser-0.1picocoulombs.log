@@ -1,0 +1,25 @@
+Circuit: * C:\Users\Jonathan Adams\Downloads\pulser-1picocoulombs\pulser-1picocoulombs.asc
+
+WARNING: Specified period is not longer than the sum of Trise, Tfall, and Ton for v1.  Increasing period to 0.00100001
+WARNING: Node OUTPUT is floating.
+
+WARNING: Less than two connections to node OUTPUT.  This node is used by C1.
+.OP point found by inspection.
+
+Date: Thu May 07 14:51:25 2020
+Total elapsed time: 0.075 seconds.
+
+tnom = 27
+temp = 27
+method = modified trap
+totiter = 2102
+traniter = 2102
+tranpoints = 1052
+accept = 1051
+rejected = 1
+matrix size = 3
+fillins = 0
+solver = Normal
+Matrix Compiler1: 50 bytes object code size  0.0/0.0/[0.0]
+Matrix Compiler2:      15 opcodes  0.0/[0.0]/0.0
+
