@@ -1,0 +1,23 @@
+Circuit: * C:\Users\allys\Desktop\SlugSat\COVID-19-Simulations\SE\Radiation_Detector\Pulse_Shaper_Waveforms\Combined-Pulser-CSP-Shaper (250 ns)\combined-pulser-CSP-PS.asc
+
+WARNING: Specified period is not longer than the sum of Trise, Tfall, and Ton for v3.  Increasing period to 0.00100001
+Direct Newton iteration for .op point succeeded.
+
+Date: Fri May 29 20:27:52 2020
+Total elapsed time: 8.740 seconds.
+
+tnom = 27
+temp = 27
+method = modified trap
+totiter = 60071
+traniter = 60050
+tranpoints = 30026
+accept = 30024
+rejected = 2
+matrix size = 42
+fillins = 25
+solver = Normal
+Thread vector: 19.3/12.4[2] 5.1/6.1[1] 1.3/3.3[1] 0.8/4.0[1]  2592/500
+Matrix Compiler1: 4.87 KB object code size  2.9/1.8/[1.2]
+Matrix Compiler2: 4.34 KB object code size  1.2/1.8/[1.2]
+
