@@ -1,0 +1,438 @@
+****************************************************************************
+* WARNING : please consider following remarks before usage
+*
+* 1) All models are a tradeoff between accuracy and complexity (ie. simulation
+* time).
+* 2) Macromodels are not a substitute to breadboarding, they rather confirm the
+* validity of a design approach and help to select surrounding component values.
+*
+* 3) A macromodel emulates the NOMINAL performance of a TYPICAL device within
+* SPECIFIED OPERATING CONDITIONS (ie. temperature, supply voltage, etc.).
+* Thus the macromodel is often not as exhaustive as the datasheet, its goal
+* is to illustrate the main parameters of the product.
+*
+* 4) Data issued from macromodels used outside of its specified conditions
+* (Vcc, Temperature, etc) or even worse: outside of the device operating
+* conditions (Vcc, Vicm, etc) are not reliable in any way.
+*
+************************************************************************************  TS3011  Spice macromodel subckt***
+***  December 2011
+****                      
+************ CONNECTIONS: 
+****             NON-INVERTING INPUT
+****              |  INVERTING INPUT
+****              |   |   POSITIVE POWER SUPPLY
+****              |   |    |   NEGATIVE POWER SUPPLY
+****              |   |    |    |  OUTPUT  
+****              |   |    |    |   |     
+****              |   |    |    |   |  
+.SUBCKT TS3011   VP  VM  VCCP VCCN  VS
+X_C_FALL V_VALORI_C_FALL 0 VREF V_C_FALL VCCAP_PSPICE
++PARAMS: CAP_scale={CAP_SCALE} Rserie=1
+X_C_VOD V_VALORI_C_VOD 0 NET0209 VREF VCCAP_PSPICE 
++PARAMS: CAP_scale={CAP_SCALE} Rserie=1.0
+X_C_RISE V_VALORI_C_RISE 0 V_C_RISE VREF VCCAP_PSPICE
++PARAMS: CAP_scale={CAP_SCALE} Rserie=1
+X_C_VCC V_VALORI_C_VCC 0 NET0285 VREF VCCAP_PSPICE 
++PARAMS: CAP_scale={CAP_SCALE} Rserie=1
+    M_NMOS2 VO_DIFF_PLUS VM VEE_N VCCN_ENHANCED MOS_N L={L} W={W}
+    M_NMOS1 VO_DIFF_MINUS NET0277 VEE_N VCCN_ENHANCED MOS_N L={L} W={W}
+    IIN_BIAS_VM VM VREF  DC 1p
+    IEE_N VEE_N VCCN_ENHANCED DC {IEE}
+    IIN_BIAS_VP VP VREF  DC 1p
+    V58 NET279 NET214 DC {VD_COMPENSAZIONE}
+    V59 NET240 NET287 DC {VD_COMPENSAZIONE}
+    VREADIO VB_4 VS DC 0
+    VVLIM_LOW_VB NET295 NET220 DC {VD_COMPENSAZIONE}
+    VPROT_IN_P_VCCP NET223 NET256 DC {V_DPROT}
+    V_ENHANCE_VCCN VCCN_ENHANCED VCCN DC {VCCN_ENHANCE}
+    VVLIM_HIGH_VB NET244 NET291 DC {VD_COMPENSAZIONE}
+    V_ENHANCE_VCCP VCCP_ENHANCED VCCP DC {VCCP_ENHANCE}
+    VPROT_IN_M_VCCN NET231 NET355 DC {V_DPROT}
+    VPROT_IN_P_VCCN NET233 NET234 DC {V_DPROT}
+    VPROT_IN_M_VCCP NET343 NET246 DC {V_DPROT}
+    D40 NET214 VB_D_VOD DIODE_NOVd
+    D_ENABLE_RISE VB_D_G_RF V_C_RISE DIODE_rf
+    DILIM_SINK VB_3_SINK VB_3 DIODE_ILIM
+    D41 VB_D_VOD NET240 DIODE_NOVd
+    D_ENABLE_FALL V_C_FALL VB_D_G_RF DIODE_rf
+    DILIM_SOURCE VB_3 VB_3_SOURCE DIODE_ILIM
+    D3 VB_D_G NET244 DIODE_NOVd
+    DPROT_IN_M_VCCP VM NET246 DIODE_VLIM
+    D4 NET220 NET0271 DIODE_NOVd
+    DPROT_IN_M_VCCN NET231 VM DIODE_VLIM
+    DPROT_IN_P_VCCP NET0277 NET256 DIODE_VLIM
+    DPROT_IN_P_VCCN NET233 NET0277 DIODE_VLIM
+    CSERIE_C_VOD VB_D_VOD NET0209 1u
+    C84 VM VP 1.2p
+    CSERIE_C_VCC VB_D_VOD_VCC NET0285 1u    
+    E_RO_3 VB_3 VB_4 VALUE={IF( I(VreadIo)>0
++,I(VreadIo)*V(Ro_3_val_VOH),I(VreadIo)*V(Ro_3_val_VOL) )}
+    E_VDEP_SOURCE_2 VAL_VDEP_SOURCE_FILTERED 0
++VALUE={IF(V(val_vdep_source)>=0, 0, V(val_vdep_source))}
+
+*    E_RO_3_VAL_VOL RO_3_VAL_VOL 0 PWL(1) VCCP VCCN ( 2.2 , 17.5 ) ( 2.7 ,
+*+12.5 ) ( 5.0 , 2.5 )
+    E_RO_3_VAL_VOL RO_3_VAL_VOL 0 VALUE={TABLE( V(VCCP,VCCN) , 2.2 , 17.5 , 2.7 ,
++12.5 , 5.0 , 2.5 )}
+        
+    E65 NET279 0 VCCN 0 1.0
+    E_VDEP_SOURCE_1 VAL_VDEP_SOURCE 0 VALUE={( -138.01552795031046 +
++114.34782608695646*V(Vccp,Vccn)
++-4.968944099378868*V(Vccp,Vccn)*V(Vccp,Vccn))  -5000*I(VreadIo) }
+    E_VDEP_SINK_3 VDEP_SINK 0 VALUE={IF( abs(I(VreadIo))<1m , 0 ,
++V(val_vdep_sink_filtered))}
+    E_ICCSAT_LOW ICC_OUT_LOW 0 POLY(1) VCCP VCCN 4.6822981366459573E-4
++1.0065217391304365E-4 -1.6459627329192566E-5
+
+*    E_C_VOD V_VALORI_C_VOD 0 PWL(1) VP VM ( -200m , {1.6p/CAP_SCALE} ) (
+*+-150m , {1.375p/CAP_SCALE} ) ( -100m , {1.09p/CAP_SCALE} ) ( -50m ,
+*+{0.768p/CAP_SCALE} ) ( -15m , {0.5p/CAP_SCALE} ) ( -5m ,
+*+{0.465p/CAP_SCALE} ) ( +5m , {0.43p/CAP_SCALE} ) ( +15m ,
+*+{0.464p/CAP_SCALE} ) ( +50m , {0.687p/CAP_SCALE} ) ( +100m ,
+*+{1p/CAP_SCALE} ) ( +150m , {1.27p/CAP_SCALE} ) ( +200m ,
+*+{1.49p/CAP_SCALE} )
+    E_C_VOD V_VALORI_C_VOD 0 VALUE={TABLE( V(VP,VM) , -200m , 1.6p ,
++-150m , 1.375p , -100m , 1.09p , -50m , 0.768p , -15m , 0.5p , -5m ,
++0.465p , +5m , 0.43p , +15m , 0.464p , +50m , 0.687p , +100m ,
++1p , +150m , 1.27p , +200m , 1.49p)/CAP_SCALE}    
+    
+    E_VOL VB_D_G NET0271 VALUE={0}
+    E_VDEP_SINK_2 VAL_VDEP_SINK_FILTERED 0
++VALUE={IF(V(val_vdep_sink)<=0 , 0 , V(val_vdep_sink))}
+    E_ICCSAT_HIGH ICC_OUT_HIGH 0 POLY(1) VCCP VCCN 4.338819875776397E-4
++3.804347826086955E-5 -7.763975155279502E-6
+
+*    E_HYST_VAL HYST_VAL 0 PWL(1) VCCP VCCN ( 2.2 , 2m ) ( 2.7 , 2m ) ( 5.0
+*+, 2m )
+    E_HYST_VAL HYST_VAL 0 VALUE={2m}
+
+    E66 NET287 0 VCCP 0 1.0
+
+*    E_RO_3_VAL_VOH RO_3_VAL_VOH 0 PWL(1) VCCP VCCN ( 2.2 , 37.5 ) ( 2.7 ,
+*+25 ) ( 5.0 , 7.5 )
+    E_RO_3_VAL_VOH RO_3_VAL_VOH 0 VALUE={TABLE( V(VCCP,VCCN) , 2.2 , 37.5 , 2.7 ,
++25 , 5.0 , 7.5 )}
+
+    EVLIM_HIGH_VB NET291 0 VCCP 0 1.0
+    
+*    E_C_VCC V_VALORI_C_VCC 0 TABLE {IF(V(VP,VM)>0,V(Vccp,Vccn),
+*+-V(Vccp,Vccn))}=(-5 {1f/CAP_scale}) (-2.7 {1f/CAP_scale}) (-2.2
+*+{0.055p/CAP_scale}) (2.2 {0.14p/CAP_scale}) (2.7 {0.08p/CAP_scale}) (5
+*+{1f/CAP_scale})
+    E_C_VCC  V_VALORI_C_VCC 0  VALUE={IF( V(VP,VM)>0, 
+    +TABLE( V(VCCP,VCCN), 2.2 , 0.14p , 2.7 , 0.08p , 5 , 1f),
+    +TABLE( V(VCCP,VCCN), 2.2 , 0.055p , 2.7 , 1f , 5 , 1f))/CAP_scale}  
+
+    EILIM_SOURCE VB_3_SOURCE VDEP_SOURCE VB_3 0 1.0
+    
+*    E_C_FALL V_VALORI_C_FALL 0 PWL(1) VCCP VCCN ( 2.2 , {2.46p/CAP_SCALE}
+*+) ( 2.7 , {1.255p/CAP_SCALE} ) ( 5.0 , {0.44p/CAP_SCALE} )
+    E_C_FALL V_VALORI_C_FALL 0 VALUE={TABLE( V(VCCP,VCCN) , 2.2 , 2.46p ,
++ 2.7 , 1.255p , 5.0 , 0.44p)/CAP_SCALE}
+
+    EVLIM_LOW_VB NET295 0 VCCN 0 1.0
+    E2_REF NET357 0 VCCN 0 1.0
+    
+*    E_VIO VP NET0390 PWL(1) VCCP VCCN ( 2.2 , -0.2m ) ( 2.7 , -0.1m ) (
+*+5.0 , -0.4m )
+    E_VIO VP NET0390 VALUE={TABLE( V(VCCP,VCCN) , 2.2 , -0.2m , 2.7 , -0.1m ,
++5.0 , -0.4m )}
+
+    EILIM_SINK VB_3_SINK VDEP_SINK VB_3 0 1.0
+    E_VREF VREF 0 NET351 0 1.0
+    E_VDEP_SOURCE_3 VDEP_SOURCE 0 VALUE={IF( abs(I(VreadIo))<1m , 0 ,
++V(val_vdep_source_filtered))}
+    E1_REF NET319 0 VCCP 0 1.0
+    
+*    E_C_RISE V_VALORI_C_RISE 0 PWL(1) VCCP VCCN ( 2.2 , {2.55p/CAP_SCALE}
+*+) ( 2.7 , {1.58p/CAP_SCALE} ) ( 5.0 , {0.43p/CAP_SCALE} )
+    E_C_RISE V_VALORI_C_RISE 0 VALUE={TABLE( V(VCCP,VCCN) , 2.2 , 2.55p ,
++ 2.7 , 1.58p , 5.0 , 0.43p)/CAP_SCALE} 
+
+    E_VDEP_SINK_1 VAL_VDEP_SINK 0 VALUE={( 82.5186335403726
++-60.21739130434778*V(Vccp,Vccn)
++-4.03726708074535*V(Vccp,Vccn)*V(Vccp,Vccn) ) -5000*I(VreadIo) }    
+    E_HYST NET0277 NET0390 VALUE={IF( V(VCCP,VCCN)>=VCCMIN , 
++ +V(VS,Vref)/( V(Vccp,Vccn)/V(Hyst_val)) , 0)}
+    R_RISE_FALL VREF VB_D_G_RF {R_RISE_FALL}
+    R_DELAY_VOD VREF VB_D_VOD {R_DELAY}
+    R_ICCSAT_HIGH ICC_OUT_HIGH 0 1K
+    RO_2 VB_3 VB_2 1m
+    RO_1 VREF VB_2 {RO_1}
+    RPROT_IN_P_VCCP NET223 VCCP 15K
+    RPROT_IN_M_VCCP VCCP NET343 15K
+    R_ICCSAT_LOW ICC_OUT_LOW 0 1K
+    RD1 VCCP_ENHANCED VO_DIFF_MINUS {RD}
+    RD2 VCCP_ENHANCED VO_DIFF_PLUS {RD}
+    R_DELAY_VCC VREF VB_D_VOD_VCC {R_DELAY}
+    R1_REF NET319 NET351 1Meg
+    R_GAIN VB_D_G VREF {R1}
+    RPROT_IN_M_VCCN VCCN NET355 15K
+    R2_REF NET351 NET357 1Meg
+    RPROT_IN_P_VCCN NET234 VCCN 15K
+    G_IOUT_SOURCED VCCP 0 VALUE={IF(I(VreadIo)>0, I(VreadIo),0)}
+    G_ICCSAT VCCP VCCN VALUE={IF( V(VS)>V(Vccp,Vccn)/2 ,
++V(Icc_out_high), V(Icc_out_low) ) }
+    G_RISE_FALL VREF VB_D_G_RF VB_D_G VREF {1/R_RISE_FALL}
+    G_GAIN VREF VB_D_G VB_D_VOD_VCC VREF 1
+    G_DELAY_VOD VB_D_VOD VREF VO_DIFF_MINUS VO_DIFF_PLUS {1/R_DELAY}
+    G_OUT VREF VB_2 VB_D_G_RF VREF {1/RO_1}
+    G_IOUT_SINKED VCCN 0 VALUE={IF(I(VreadIo)>0, 0, I(VreadIo))}
+    G_DELAY_VCC VB_D_VOD_VCC VREF VREF VB_D_VOD {1/R_DELAY}
+
+*******************************************************************************
+*
+.PARAM CAP_scale=1e-15
+.PARAM VCCMIN=2.2
+.PARAM A0=10E+06 
+.PARAM IEE=40u
+.PARAM W=100u
+.PARAM L=10u
+.PARAM gm_mos=200u
+.PARAM RD=10k
+.PARAM R_delay={RD}
+.PARAM R1={A0/(gm_mos*RD)}
+.PARAM Ro_1=20
+.PARAM R_rise_fall=1000
+.PARAM VCCP_enhance=150m
+.PARAM VCCN_enhance=-1100m 
+.PARAM V_DPROT=150m
+.PARAM Vd_compensazione=-788.4u
+.MODEL MOS_N  NMOS LEVEL=1 VTO=+0.65  KP=100E-6
+.MODEL DIODE_rf D LEVEL=1 IS=10E-15 N=1 CJO=10f
+.MODEL DIODE_NOVd D LEVEL=1 IS=10E-15 N=0.001
+.MODEL DIODE_VLIM D LEVEL=1 IS=0.8E-15   
+.MODEL DIODE_ILIM D LEVEL=1 IS=0.8E-15  
+*
+*******************************************************************************
+
+.ENDS TS3011
+
+
+*******************************************************
+******* SUBCKT VOLTAGE CONTROLLED CAPACITOR for SPICE
+*******************************************************
+.SUBCKT VCCAP_PSPICE Vctrl_plus Vctrl_minus Vout_plus Vout_minus  
++ PARAMS: CAP_scale=1u  Rserie=1
+EVin 2 0 VALUE={1/V(Vctrl_plus,Vctrl_minus)}
+EV2 8 Vout_plus POLY(2) 6 0 2 0 0 0 0 0 1 0 0 0 0 0
+RR1 8 Vout_minus {Rserie}
+GI1 0 6 Vout_minus 8 {1/Rserie}
+RR2 0 6 100G 
+CC1 6 0 {CAP_scale}  
+.ENDS VCCAP_PSPICE
+*********************************************************
+
+****************************************************************************
+* WARNING : please consider following remarks before usage
+*
+* 1) All models are a tradeoff between accuracy and complexity (ie. simulation
+* time).
+* 2) Macromodels are not a substitute to breadboarding, they rather confirm the
+* validity of a design approach and help to select surrounding component values.
+*
+* 3) A macromodel emulates the NOMINAL performance of a TYPICAL device within
+* SPECIFIED OPERATING CONDITIONS (ie. temperature, supply voltage, etc.).
+* Thus the macromodel is often not as exhaustive as the datasheet, its goal
+* is to illustrate the main parameters of the product.
+*
+* 4) Data issued from macromodels used outside of its specified conditions
+* (Vcc, Temperature, etc) or even worse: outside of the device operating
+* conditions (Vcc, Vicm, etc) are not reliable in any way.
+*
+************************************************************************************  TS3011  Spice macromodel subckt***
+***  December 2011
+****                      
+************ CONNECTIONS: 
+****             NON-INVERTING INPUT
+****              |  INVERTING INPUT
+****              |   |   POSITIVE POWER SUPPLY
+****              |   |    |   NEGATIVE POWER SUPPLY
+****              |   |    |    |  OUTPUT  
+****              |   |    |    |   |     
+****              |   |    |    |   |  
+.SUBCKT TS3011   VP  VM  VCCP VCCN  VS
+X_C_FALL V_VALORI_C_FALL 0 VREF V_C_FALL VCCAP_PSPICE
++PARAMS: CAP_scale={CAP_SCALE} Rserie=1
+X_C_VOD V_VALORI_C_VOD 0 NET0209 VREF VCCAP_PSPICE 
++PARAMS: CAP_scale={CAP_SCALE} Rserie=1.0
+X_C_RISE V_VALORI_C_RISE 0 V_C_RISE VREF VCCAP_PSPICE
++PARAMS: CAP_scale={CAP_SCALE} Rserie=1
+X_C_VCC V_VALORI_C_VCC 0 NET0285 VREF VCCAP_PSPICE 
++PARAMS: CAP_scale={CAP_SCALE} Rserie=1
+    M_NMOS2 VO_DIFF_PLUS VM VEE_N VCCN_ENHANCED MOS_N L={L} W={W}
+    M_NMOS1 VO_DIFF_MINUS NET0277 VEE_N VCCN_ENHANCED MOS_N L={L} W={W}
+    IIN_BIAS_VM VM VREF  DC 1p
+    IEE_N VEE_N VCCN_ENHANCED DC {IEE}
+    IIN_BIAS_VP VP VREF  DC 1p
+    V58 NET279 NET214 DC {VD_COMPENSAZIONE}
+    V59 NET240 NET287 DC {VD_COMPENSAZIONE}
+    VREADIO VB_4 VS DC 0
+    VVLIM_LOW_VB NET295 NET220 DC {VD_COMPENSAZIONE}
+    VPROT_IN_P_VCCP NET223 NET256 DC {V_DPROT}
+    V_ENHANCE_VCCN VCCN_ENHANCED VCCN DC {VCCN_ENHANCE}
+    VVLIM_HIGH_VB NET244 NET291 DC {VD_COMPENSAZIONE}
+    V_ENHANCE_VCCP VCCP_ENHANCED VCCP DC {VCCP_ENHANCE}
+    VPROT_IN_M_VCCN NET231 NET355 DC {V_DPROT}
+    VPROT_IN_P_VCCN NET233 NET234 DC {V_DPROT}
+    VPROT_IN_M_VCCP NET343 NET246 DC {V_DPROT}
+    D40 NET214 VB_D_VOD DIODE_NOVd
+    D_ENABLE_RISE VB_D_G_RF V_C_RISE DIODE_rf
+    DILIM_SINK VB_3_SINK VB_3 DIODE_ILIM
+    D41 VB_D_VOD NET240 DIODE_NOVd
+    D_ENABLE_FALL V_C_FALL VB_D_G_RF DIODE_rf
+    DILIM_SOURCE VB_3 VB_3_SOURCE DIODE_ILIM
+    D3 VB_D_G NET244 DIODE_NOVd
+    DPROT_IN_M_VCCP VM NET246 DIODE_VLIM
+    D4 NET220 NET0271 DIODE_NOVd
+    DPROT_IN_M_VCCN NET231 VM DIODE_VLIM
+    DPROT_IN_P_VCCP NET0277 NET256 DIODE_VLIM
+    DPROT_IN_P_VCCN NET233 NET0277 DIODE_VLIM
+    CSERIE_C_VOD VB_D_VOD NET0209 1u
+    C84 VM VP 1.2p
+    CSERIE_C_VCC VB_D_VOD_VCC NET0285 1u    
+    E_RO_3 VB_3 VB_4 VALUE={IF( I(VreadIo)>0
++,I(VreadIo)*V(Ro_3_val_VOH),I(VreadIo)*V(Ro_3_val_VOL) )}
+    E_VDEP_SOURCE_2 VAL_VDEP_SOURCE_FILTERED 0
++VALUE={IF(V(val_vdep_source)>=0, 0, V(val_vdep_source))}
+
+*    E_RO_3_VAL_VOL RO_3_VAL_VOL 0 PWL(1) VCCP VCCN ( 2.2 , 17.5 ) ( 2.7 ,
+*+12.5 ) ( 5.0 , 2.5 )
+    E_RO_3_VAL_VOL RO_3_VAL_VOL 0 VALUE={TABLE( V(VCCP,VCCN) , 2.2 , 17.5 , 2.7 ,
++12.5 , 5.0 , 2.5 )}
+        
+    E65 NET279 0 VCCN 0 1.0
+    E_VDEP_SOURCE_1 VAL_VDEP_SOURCE 0 VALUE={( -138.01552795031046 +
++114.34782608695646*V(Vccp,Vccn)
++-4.968944099378868*V(Vccp,Vccn)*V(Vccp,Vccn))  -5000*I(VreadIo) }
+    E_VDEP_SINK_3 VDEP_SINK 0 VALUE={IF( abs(I(VreadIo))<1m , 0 ,
++V(val_vdep_sink_filtered))}
+    E_ICCSAT_LOW ICC_OUT_LOW 0 POLY(1) VCCP VCCN 4.6822981366459573E-4
++1.0065217391304365E-4 -1.6459627329192566E-5
+
+*    E_C_VOD V_VALORI_C_VOD 0 PWL(1) VP VM ( -200m , {1.6p/CAP_SCALE} ) (
+*+-150m , {1.375p/CAP_SCALE} ) ( -100m , {1.09p/CAP_SCALE} ) ( -50m ,
+*+{0.768p/CAP_SCALE} ) ( -15m , {0.5p/CAP_SCALE} ) ( -5m ,
+*+{0.465p/CAP_SCALE} ) ( +5m , {0.43p/CAP_SCALE} ) ( +15m ,
+*+{0.464p/CAP_SCALE} ) ( +50m , {0.687p/CAP_SCALE} ) ( +100m ,
+*+{1p/CAP_SCALE} ) ( +150m , {1.27p/CAP_SCALE} ) ( +200m ,
+*+{1.49p/CAP_SCALE} )
+    E_C_VOD V_VALORI_C_VOD 0 VALUE={TABLE( V(VP,VM) , -200m , 1.6p ,
++-150m , 1.375p , -100m , 1.09p , -50m , 0.768p , -15m , 0.5p , -5m ,
++0.465p , +5m , 0.43p , +15m , 0.464p , +50m , 0.687p , +100m ,
++1p , +150m , 1.27p , +200m , 1.49p)/CAP_SCALE}    
+    
+    E_VOL VB_D_G NET0271 VALUE={0}
+    E_VDEP_SINK_2 VAL_VDEP_SINK_FILTERED 0
++VALUE={IF(V(val_vdep_sink)<=0 , 0 , V(val_vdep_sink))}
+    E_ICCSAT_HIGH ICC_OUT_HIGH 0 POLY(1) VCCP VCCN 4.338819875776397E-4
++3.804347826086955E-5 -7.763975155279502E-6
+
+*    E_HYST_VAL HYST_VAL 0 PWL(1) VCCP VCCN ( 2.2 , 2m ) ( 2.7 , 2m ) ( 5.0
+*+, 2m )
+    E_HYST_VAL HYST_VAL 0 VALUE={2m}
+
+    E66 NET287 0 VCCP 0 1.0
+
+*    E_RO_3_VAL_VOH RO_3_VAL_VOH 0 PWL(1) VCCP VCCN ( 2.2 , 37.5 ) ( 2.7 ,
+*+25 ) ( 5.0 , 7.5 )
+    E_RO_3_VAL_VOH RO_3_VAL_VOH 0 VALUE={TABLE( V(VCCP,VCCN) , 2.2 , 37.5 , 2.7 ,
++25 , 5.0 , 7.5 )}
+
+    EVLIM_HIGH_VB NET291 0 VCCP 0 1.0
+    
+*    E_C_VCC V_VALORI_C_VCC 0 TABLE {IF(V(VP,VM)>0,V(Vccp,Vccn),
+*+-V(Vccp,Vccn))}=(-5 {1f/CAP_scale}) (-2.7 {1f/CAP_scale}) (-2.2
+*+{0.055p/CAP_scale}) (2.2 {0.14p/CAP_scale}) (2.7 {0.08p/CAP_scale}) (5
+*+{1f/CAP_scale})
+    E_C_VCC  V_VALORI_C_VCC 0  VALUE={IF( V(VP,VM)>0, 
+    +TABLE( V(VCCP,VCCN), 2.2 , 0.14p , 2.7 , 0.08p , 5 , 1f),
+    +TABLE( V(VCCP,VCCN), 2.2 , 0.055p , 2.7 , 1f , 5 , 1f))/CAP_scale}  
+
+    EILIM_SOURCE VB_3_SOURCE VDEP_SOURCE VB_3 0 1.0
+    
+*    E_C_FALL V_VALORI_C_FALL 0 PWL(1) VCCP VCCN ( 2.2 , {2.46p/CAP_SCALE}
+*+) ( 2.7 , {1.255p/CAP_SCALE} ) ( 5.0 , {0.44p/CAP_SCALE} )
+    E_C_FALL V_VALORI_C_FALL 0 VALUE={TABLE( V(VCCP,VCCN) , 2.2 , 2.46p ,
++ 2.7 , 1.255p , 5.0 , 0.44p)/CAP_SCALE}
+
+    EVLIM_LOW_VB NET295 0 VCCN 0 1.0
+    E2_REF NET357 0 VCCN 0 1.0
+    
+*    E_VIO VP NET0390 PWL(1) VCCP VCCN ( 2.2 , -0.2m ) ( 2.7 , -0.1m ) (
+*+5.0 , -0.4m )
+    E_VIO VP NET0390 VALUE={TABLE( V(VCCP,VCCN) , 2.2 , -0.2m , 2.7 , -0.1m ,
++5.0 , -0.4m )}
+
+    EILIM_SINK VB_3_SINK VDEP_SINK VB_3 0 1.0
+    E_VREF VREF 0 NET351 0 1.0
+    E_VDEP_SOURCE_3 VDEP_SOURCE 0 VALUE={IF( abs(I(VreadIo))<1m , 0 ,
++V(val_vdep_source_filtered))}
+    E1_REF NET319 0 VCCP 0 1.0
+    
+*    E_C_RISE V_VALORI_C_RISE 0 PWL(1) VCCP VCCN ( 2.2 , {2.55p/CAP_SCALE}
+*+) ( 2.7 , {1.58p/CAP_SCALE} ) ( 5.0 , {0.43p/CAP_SCALE} )
+    E_C_RISE V_VALORI_C_RISE 0 VALUE={TABLE( V(VCCP,VCCN) , 2.2 , 2.55p ,
++ 2.7 , 1.58p , 5.0 , 0.43p)/CAP_SCALE} 
+
+    E_VDEP_SINK_1 VAL_VDEP_SINK 0 VALUE={( 82.5186335403726
++-60.21739130434778*V(Vccp,Vccn)
++-4.03726708074535*V(Vccp,Vccn)*V(Vccp,Vccn) ) -5000*I(VreadIo) }    
+    E_HYST NET0277 NET0390 VALUE={IF( V(VCCP,VCCN)>=VCCMIN , 
++ +V(VS,Vref)/( V(Vccp,Vccn)/V(Hyst_val)) , 0)}
+    R_RISE_FALL VREF VB_D_G_RF {R_RISE_FALL}
+    R_DELAY_VOD VREF VB_D_VOD {R_DELAY}
+    R_ICCSAT_HIGH ICC_OUT_HIGH 0 1K
+    RO_2 VB_3 VB_2 1m
+    RO_1 VREF VB_2 {RO_1}
+    RPROT_IN_P_VCCP NET223 VCCP 15K
+    RPROT_IN_M_VCCP VCCP NET343 15K
+    R_ICCSAT_LOW ICC_OUT_LOW 0 1K
+    RD1 VCCP_ENHANCED VO_DIFF_MINUS {RD}
+    RD2 VCCP_ENHANCED VO_DIFF_PLUS {RD}
+    R_DELAY_VCC VREF VB_D_VOD_VCC {R_DELAY}
+    R1_REF NET319 NET351 1Meg
+    R_GAIN VB_D_G VREF {R1}
+    RPROT_IN_M_VCCN VCCN NET355 15K
+    R2_REF NET351 NET357 1Meg
+    RPROT_IN_P_VCCN NET234 VCCN 15K
+    G_IOUT_SOURCED VCCP 0 VALUE={IF(I(VreadIo)>0, I(VreadIo),0)}
+    G_ICCSAT VCCP VCCN VALUE={IF( V(VS)>V(Vccp,Vccn)/2 ,
++V(Icc_out_high), V(Icc_out_low) ) }
+    G_RISE_FALL VREF VB_D_G_RF VB_D_G VREF {1/R_RISE_FALL}
+    G_GAIN VREF VB_D_G VB_D_VOD_VCC VREF 1
+    G_DELAY_VOD VB_D_VOD VREF VO_DIFF_MINUS VO_DIFF_PLUS {1/R_DELAY}
+    G_OUT VREF VB_2 VB_D_G_RF VREF {1/RO_1}
+    G_IOUT_SINKED VCCN 0 VALUE={IF(I(VreadIo)>0, 0, I(VreadIo))}
+    G_DELAY_VCC VB_D_VOD_VCC VREF VREF VB_D_VOD {1/R_DELAY}
+
+*******************************************************************************
+*
+.PARAM CAP_scale=1e-15
+.PARAM VCCMIN=2.2
+.PARAM A0=10E+06 
+.PARAM IEE=40u
+.PARAM W=100u
+.PARAM L=10u
+.PARAM gm_mos=200u
+.PARAM RD=10k
+.PARAM R_delay={RD}
+.PARAM R1={A0/(gm_mos*RD)}
+.PARAM Ro_1=20
+.PARAM R_rise_fall=1000
+.PARAM VCCP_enhance=150m
+.PARAM VCCN_enhance=-1100m 
+.PARAM V_DPROT=150m
+.PARAM Vd_compensazione=-788.4u
+.MODEL MOS_N  NMOS LEVEL=1 VTO=+0.65  KP=100E-6
+.MODEL DIODE_rf D LEVEL=1 IS=10E-15 N=1 CJO=10f
+.MODEL DIODE_NOVd D LEVEL=1 IS=10E-15 N=0.001
+.MODEL DIODE_VLIM D LEVEL=1 IS=0.8E-15   
+.MODEL DIODE_ILIM D LEVEL=1 IS=0.8E-15  
+*
+*******************************************************************************
+
+.ENDS TS3011
+
+
