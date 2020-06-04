@@ -1,0 +1,325 @@
+**
+** Library generated Tuesday, June 02, 2020 21:58:17
+** The IBIS file was D:\SlugSat\GitHub\COVID-19-Simulations\SE\Radiation_Detector\Combined_Waveforms\pC ~ OPA855 ~ 20 ns\Parts\SN74LVC1G74\SN74LVC1G74.ibs
+**
+** Failed to open copyright.txt. Error: 2.
+** Warning: Model LVC1G74_IN changed to LVC1G74_
+** Warning: Model LVC1G74_OUT changed to LVC1G75_
+** Warning: Model LVC1G74_NCLR_IN changed to LVC1G76_
+** Warning: Model LVC1G74_NPRE_IN changed to LVC1G77_
+** Warning: Model LVC1G74_NPRE_IN_18 changed to LVC1G78_
+** Warning: Model LVC1G74_NPRE_IN_25 changed to LVC1G79_
+** Warning: Model LVC1G74_NPRE_IN_33 changed to LVC1G7A_
+** Warning: Model LVC1G74_NPRE_IN_50 changed to LVC1G7B_
+** Warning: Model LVC1G74_NCLR_IN_18 changed to LVC1G7C_
+** Warning: Model LVC1G74_NCLR_IN_25 changed to LVC1G7D_
+** Warning: Model LVC1G74_NCLR_IN_33 changed to LVC1G7E_
+** Warning: Model LVC1G74_NCLR_IN_50 changed to LVC1G7F_
+** Warning: Model LVC1G74_IN_18 changed to LVC1G7G_
+** Warning: Model LVC1G74_IN_25 changed to LVC1G7H_
+** Warning: Model LVC1G74_IN_33 changed to LVC1G7I_
+** Warning: Model LVC1G74_IN_50 changed to LVC1G7J_
+** Warning: Model LVC1G74_OUT_18 changed to LVC1G7K_
+** Warning: Model LVC1G74_OUT_25 changed to LVC1G7L_
+** Warning: Model LVC1G74_OUT_33 changed to LVC1G7M_
+** Warning: Model LVC1G74_OUT_50 changed to LVC1G7N_
+**********
+*SRC=LVC1G74__Pin_1_T;LVC1G74__Pin_1_T;IBIS_BUFFER;*SYM=IBISO
+.SUBCKT LVC1G74__Pin_1_T 100 4 300 400 500
+*Connections    Input Output VCC VEE Enable
+** Referenced by:
+** CLK
+*Model Version; typical
+*DEFINE {RTF}=??bad rtr/rtf value??
+*DEFINE {RTR}=??bad rtr/rtf value??
+* Input Control
+B1 820 0 V=V(100) & V(500)
+B2 830 0 V= V(500) & ~V(100)
+* Up and Down Ramps
+B3 300 850 I= V(830) > 1.2   ? 0 : V(300,850) / {RTR}
+RB3 300 850 100MEG
+B4 840 400 I= V(820) > 1.2 ? 0 : V(840,400) / {RTF}
+RB4 840 400 100MEG
+C1 300 850 .01P
+C2 840 400 .01P
+S1 220 850 0 820 SMOD
+S2 840 220 0 830 SMOD
+.MODEL SMOD SW RON=.1M ROFF=1E15 VT=-1.2 VH=.1
+G1 8 400 2 8 1
+R1 6 400 1
+G2 300 8 8 3 1
+R2 300 6 1
+* Pull-up/Pull-down structures; typical
+* Diode Clamps
+* Package Parasitics: typical
+ROSNB 5 1 100
+ROPKG 1 4 3.100e-02
+COPKG 4 400 2.230e-13
+CCOMP 5 400 LOPKG 5 1 1.894e-09
+* Voltage Sources for measuring currents
+V5 6 5 
+V6 8 6 
+V7 220 8 
+.ENDS
+**********
+
+**
+** Library generated Tuesday, June 02, 2020 21:58:17
+** The IBIS file was D:\SlugSat\GitHub\COVID-19-Simulations\SE\Radiation_Detector\Combined_Waveforms\pC ~ OPA855 ~ 20 ns\Parts\SN74LVC1G74\SN74LVC1G74.ibs
+**
+** Failed to open copyright.txt. Error: 2.
+** Warning: Model LVC1G74_IN changed to LVC1G74_
+** Warning: Model LVC1G74_OUT changed to LVC1G75_
+** Warning: Model LVC1G74_NCLR_IN changed to LVC1G76_
+** Warning: Model LVC1G74_NPRE_IN changed to LVC1G77_
+** Warning: Model LVC1G74_NPRE_IN_18 changed to LVC1G78_
+** Warning: Model LVC1G74_NPRE_IN_25 changed to LVC1G79_
+** Warning: Model LVC1G74_NPRE_IN_33 changed to LVC1G7A_
+** Warning: Model LVC1G74_NPRE_IN_50 changed to LVC1G7B_
+** Warning: Model LVC1G74_NCLR_IN_18 changed to LVC1G7C_
+** Warning: Model LVC1G74_NCLR_IN_25 changed to LVC1G7D_
+** Warning: Model LVC1G74_NCLR_IN_33 changed to LVC1G7E_
+** Warning: Model LVC1G74_NCLR_IN_50 changed to LVC1G7F_
+** Warning: Model LVC1G74_IN_18 changed to LVC1G7G_
+** Warning: Model LVC1G74_IN_25 changed to LVC1G7H_
+** Warning: Model LVC1G74_IN_33 changed to LVC1G7I_
+** Warning: Model LVC1G74_IN_50 changed to LVC1G7J_
+** Warning: Model LVC1G74_OUT_18 changed to LVC1G7K_
+** Warning: Model LVC1G74_OUT_25 changed to LVC1G7L_
+** Warning: Model LVC1G74_OUT_33 changed to LVC1G7M_
+** Warning: Model LVC1G74_OUT_50 changed to LVC1G7N_
+**********
+*SRC=LVC1G74__Pin_2_T;LVC1G74__Pin_2_T;IBIS_BUFFER;*SYM=IBISO
+.SUBCKT LVC1G74__Pin_2_T 100 4 300 400 500
+*Connections    Input Output VCC VEE Enable
+** Referenced by:
+** D
+*Model Version; typical
+*DEFINE {RTF}=??bad rtr/rtf value??
+*DEFINE {RTR}=??bad rtr/rtf value??
+* Input Control
+B1 820 0 V=V(100) & V(500)
+B2 830 0 V= V(500) & ~V(100)
+* Up and Down Ramps
+B3 300 850 I= V(830) > 1.2   ? 0 : V(300,850) / {RTR}
+RB3 300 850 100MEG
+B4 840 400 I= V(820) > 1.2 ? 0 : V(840,400) / {RTF}
+RB4 840 400 100MEG
+C1 300 850 .01P
+C2 840 400 .01P
+S1 220 850 0 820 SMOD
+S2 840 220 0 830 SMOD
+.MODEL SMOD SW RON=.1M ROFF=1E15 VT=-1.2 VH=.1
+G1 8 400 2 8 1
+R1 6 400 1
+G2 300 8 8 3 1
+R2 300 6 1
+* Pull-up/Pull-down structures; typical
+* Diode Clamps
+* Package Parasitics: typical
+ROSNB 5 1 100
+ROPKG 1 4 2.800e-02
+COPKG 4 400 2.370e-13
+CCOMP 5 400 LOPKG 5 1 1.697e-09
+* Voltage Sources for measuring currents
+V5 6 5 
+V6 8 6 
+V7 220 8 
+.ENDS
+**********
+
+**
+** Library generated Tuesday, June 02, 2020 21:58:17
+** The IBIS file was D:\SlugSat\GitHub\COVID-19-Simulations\SE\Radiation_Detector\Combined_Waveforms\pC ~ OPA855 ~ 20 ns\Parts\SN74LVC1G74\SN74LVC1G74.ibs
+**
+** Failed to open copyright.txt. Error: 2.
+** Warning: Model LVC1G74_IN changed to LVC1G74_
+** Warning: Model LVC1G74_OUT changed to LVC1G75_
+** Warning: Model LVC1G74_NCLR_IN changed to LVC1G76_
+** Warning: Model LVC1G74_NPRE_IN changed to LVC1G77_
+** Warning: Model LVC1G74_NPRE_IN_18 changed to LVC1G78_
+** Warning: Model LVC1G74_NPRE_IN_25 changed to LVC1G79_
+** Warning: Model LVC1G74_NPRE_IN_33 changed to LVC1G7A_
+** Warning: Model LVC1G74_NPRE_IN_50 changed to LVC1G7B_
+** Warning: Model LVC1G74_NCLR_IN_18 changed to LVC1G7C_
+** Warning: Model LVC1G74_NCLR_IN_25 changed to LVC1G7D_
+** Warning: Model LVC1G74_NCLR_IN_33 changed to LVC1G7E_
+** Warning: Model LVC1G74_NCLR_IN_50 changed to LVC1G7F_
+** Warning: Model LVC1G74_IN_18 changed to LVC1G7G_
+** Warning: Model LVC1G74_IN_25 changed to LVC1G7H_
+** Warning: Model LVC1G74_IN_33 changed to LVC1G7I_
+** Warning: Model LVC1G74_IN_50 changed to LVC1G7J_
+** Warning: Model LVC1G74_OUT_18 changed to LVC1G7K_
+** Warning: Model LVC1G74_OUT_25 changed to LVC1G7L_
+** Warning: Model LVC1G74_OUT_33 changed to LVC1G7M_
+** Warning: Model LVC1G74_OUT_50 changed to LVC1G7N_
+**********
+*SRC=LVC1G75__Pin_3_T;LVC1G75__Pin_3_T;IBIS_BUFFER;*SYM=IBISO
+.SUBCKT LVC1G75__Pin_3_T 100 4 300 400 500
+*Connections    Input Output VCC VEE Enable
+** Referenced by:
+** NQ
+*Model Version; typical
+*DEFINE {RTF}=??bad rtr/rtf value??
+*DEFINE {RTR}=??bad rtr/rtf value??
+* Input Control
+B1 820 0 V=V(100) & V(500)
+B2 830 0 V= V(500) & ~V(100)
+* Up and Down Ramps
+B3 300 850 I= V(830) > 1.2   ? 0 : V(300,850) / {RTR}
+RB3 300 850 100MEG
+B4 840 400 I= V(820) > 1.2 ? 0 : V(840,400) / {RTF}
+RB4 840 400 100MEG
+C1 300 850 .01P
+C2 840 400 .01P
+S1 220 850 0 820 SMOD
+S2 840 220 0 830 SMOD
+.MODEL SMOD SW RON=.1M ROFF=1E15 VT=-1.2 VH=.1
+G1 8 400 2 8 1
+R1 6 400 1
+G2 300 8 8 3 1
+R2 300 6 1
+* Pull-up/Pull-down structures; typical
+* Diode Clamps
+* Package Parasitics: typical
+ROSNB 5 1 100
+ROPKG 1 4 3.000e-02
+COPKG 4 400 2.390e-13
+CCOMP 5 400 LOPKG 5 1 1.722e-09
+* Voltage Sources for measuring currents
+V5 6 5 
+V6 8 6 
+V7 220 8 
+.ENDS
+**********
+
+**
+** Library generated Tuesday, June 02, 2020 21:58:17
+** The IBIS file was D:\SlugSat\GitHub\COVID-19-Simulations\SE\Radiation_Detector\Combined_Waveforms\pC ~ OPA855 ~ 20 ns\Parts\SN74LVC1G74\SN74LVC1G74.ibs
+**
+** Failed to open copyright.txt. Error: 2.
+** Warning: Model LVC1G74_IN changed to LVC1G74_
+** Warning: Model LVC1G74_OUT changed to LVC1G75_
+** Warning: Model LVC1G74_NCLR_IN changed to LVC1G76_
+** Warning: Model LVC1G74_NPRE_IN changed to LVC1G77_
+** Warning: Model LVC1G74_NPRE_IN_18 changed to LVC1G78_
+** Warning: Model LVC1G74_NPRE_IN_25 changed to LVC1G79_
+** Warning: Model LVC1G74_NPRE_IN_33 changed to LVC1G7A_
+** Warning: Model LVC1G74_NPRE_IN_50 changed to LVC1G7B_
+** Warning: Model LVC1G74_NCLR_IN_18 changed to LVC1G7C_
+** Warning: Model LVC1G74_NCLR_IN_25 changed to LVC1G7D_
+** Warning: Model LVC1G74_NCLR_IN_33 changed to LVC1G7E_
+** Warning: Model LVC1G74_NCLR_IN_50 changed to LVC1G7F_
+** Warning: Model LVC1G74_IN_18 changed to LVC1G7G_
+** Warning: Model LVC1G74_IN_25 changed to LVC1G7H_
+** Warning: Model LVC1G74_IN_33 changed to LVC1G7I_
+** Warning: Model LVC1G74_IN_50 changed to LVC1G7J_
+** Warning: Model LVC1G74_OUT_18 changed to LVC1G7K_
+** Warning: Model LVC1G74_OUT_25 changed to LVC1G7L_
+** Warning: Model LVC1G74_OUT_33 changed to LVC1G7M_
+** Warning: Model LVC1G74_OUT_50 changed to LVC1G7N_
+**********
+*SRC=LVC1G75__Pin_5_T;LVC1G75__Pin_5_T;IBIS_BUFFER;*SYM=IBISO
+.SUBCKT LVC1G75__Pin_5_T 100 4 300 400 500
+*Connections    Input Output VCC VEE Enable
+** Referenced by:
+** Q
+*Model Version; typical
+*DEFINE {RTF}=??bad rtr/rtf value??
+*DEFINE {RTR}=??bad rtr/rtf value??
+* Input Control
+B1 820 0 V=V(100) & V(500)
+B2 830 0 V= V(500) & ~V(100)
+* Up and Down Ramps
+B3 300 850 I= V(830) > 1.2   ? 0 : V(300,850) / {RTR}
+RB3 300 850 100MEG
+B4 840 400 I= V(820) > 1.2 ? 0 : V(840,400) / {RTF}
+RB4 840 400 100MEG
+C1 300 850 .01P
+C2 840 400 .01P
+S1 220 850 0 820 SMOD
+S2 840 220 0 830 SMOD
+.MODEL SMOD SW RON=.1M ROFF=1E15 VT=-1.2 VH=.1
+G1 8 400 2 8 1
+R1 6 400 1
+G2 300 8 8 3 1
+R2 300 6 1
+* Pull-up/Pull-down structures; typical
+* Diode Clamps
+* Package Parasitics: typical
+ROSNB 5 1 100
+ROPKG 1 4 2.800e-02
+COPKG 4 400 2.280e-13
+CCOMP 5 400 LOPKG 5 1 1.924e-09
+* Voltage Sources for measuring currents
+V5 6 5 
+V6 8 6 
+V7 220 8 
+.ENDS
+**********
+
+**
+** Library generated Tuesday, June 02, 2020 21:58:17
+** The IBIS file was D:\SlugSat\GitHub\COVID-19-Simulations\SE\Radiation_Detector\Combined_Waveforms\pC ~ OPA855 ~ 20 ns\Parts\SN74LVC1G74\SN74LVC1G74.ibs
+**
+** Failed to open copyright.txt. Error: 2.
+** Warning: Model LVC1G74_IN changed to LVC1G74_
+** Warning: Model LVC1G74_OUT changed to LVC1G75_
+** Warning: Model LVC1G74_NCLR_IN changed to LVC1G76_
+** Warning: Model LVC1G74_NPRE_IN changed to LVC1G77_
+** Warning: Model LVC1G74_NPRE_IN_18 changed to LVC1G78_
+** Warning: Model LVC1G74_NPRE_IN_25 changed to LVC1G79_
+** Warning: Model LVC1G74_NPRE_IN_33 changed to LVC1G7A_
+** Warning: Model LVC1G74_NPRE_IN_50 changed to LVC1G7B_
+** Warning: Model LVC1G74_NCLR_IN_18 changed to LVC1G7C_
+** Warning: Model LVC1G74_NCLR_IN_25 changed to LVC1G7D_
+** Warning: Model LVC1G74_NCLR_IN_33 changed to LVC1G7E_
+** Warning: Model LVC1G74_NCLR_IN_50 changed to LVC1G7F_
+** Warning: Model LVC1G74_IN_18 changed to LVC1G7G_
+** Warning: Model LVC1G74_IN_25 changed to LVC1G7H_
+** Warning: Model LVC1G74_IN_33 changed to LVC1G7I_
+** Warning: Model LVC1G74_IN_50 changed to LVC1G7J_
+** Warning: Model LVC1G74_OUT_18 changed to LVC1G7K_
+** Warning: Model LVC1G74_OUT_25 changed to LVC1G7L_
+** Warning: Model LVC1G74_OUT_33 changed to LVC1G7M_
+** Warning: Model LVC1G74_OUT_50 changed to LVC1G7N_
+**********
+*SRC=LVC1G76__Pin_6_T;LVC1G76__Pin_6_T;IBIS_BUFFER;*SYM=IBISO
+.SUBCKT LVC1G76__Pin_6_T 100 4 300 400 500
+*Connections    Input Output VCC VEE Enable
+** Referenced by:
+** NCLR
+*Model Version; typical
+*DEFINE {RTF}=??bad rtr/rtf value??
+*DEFINE {RTR}=??bad rtr/rtf value??
+* Input Control
+B1 820 0 V=V(100) & V(500)
+B2 830 0 V= V(500) & ~V(100)
+* Up and Down Ramps
+B3 300 850 I= V(830) > 1.2   ? 0 : V(300,850) / {RTR}
+RB3 300 850 100MEG
+B4 840 400 I= V(820) > 1.2 ? 0 : V(840,400) / {RTF}
+RB4 840 400 100MEG
+C1 300 850 .01P
+C2 840 400 .01P
+S1 220 850 0 820 SMOD
+S2 840 220 0 830 SMOD
+.MODEL SMOD SW RON=.1M ROFF=1E15 VT=-1.2 VH=.1
+G1 8 400 2 8 1
+R1 6 400 1
+G2 300 8 8 3 1
+R2 300 6 1
+* Pull-up/Pull-down structures; typical
+* Diode Clamps
+* Package Parasitics: typical
+ROSNB 5 1 100
+ROPKG 1 4 2.900e-02
+COPKG 4 400 2.420e-13
+CCOMP 5 400 LOPKG 5 1 1.736e-09
+* Voltage Sources for measuring currents
+V5 6 5 
+V6 8 6 
+V7 220 8 
+.ENDS
+**********
+
