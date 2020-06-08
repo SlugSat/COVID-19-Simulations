@@ -1,0 +1,68 @@
+* D:\SlugSat\GitHub\COVID-19-Simulations\SE\Radiation_Detector\Combined_Waveforms\Final Combo\Radiation_to_OBC.asc
+R1 N001 N008 69
+C1 N007 N006 230p
+V2 Comp_Vs+ 0 5
+R2 CSP N001 69k
+C3 CSP N001 420p
+V1 N006 0 PULSE(35 26.9 0 1e-9 300e-9 0 1e-6)
+C2 N008 N007 10n
+C6 0 Comp_Vs+ 10n
+C7 0 -5V 10n
+C5 Comp_Vs+ 0 10µ
+C8 0 -5V 10µ
+R3 0 HPF 200
+C4 HPF CSP 100p
+R5 N004 HPF 100
+R6 0 SKF 1k
+C14 SKF N004 200p
+R7 N010 N004 100
+C15 N010 0 69p
+XU2 N010 SKF Comp_Vs+ -5V SKF MAX4225
+C21 0 Comp_Vs+ 10n
+C22 Comp_Vs+ 0 10µ
+C23 0 -5V 10n
+C24 0 -5V 10µ
+R4 HPF CSP 10k
+C9 0 Comp_Vs+ 10n
+C10 Comp_Vs+ 0 10µ
+C13 0 -5V 10n
+C16 0 -5V 10µ
+XU3 SKF N012 Comp_Vs+ -5V PS_Out MAX4225
+R9 0 N012 1k
+R10 N012 PS_Out 2k
+XU4 PS_Out N003 Comp_Vs+ 0 N002 LT1720
+XU1 0 N001 Comp_Vs+ -5V CSP MAX4223
+A5 0 D0 D1 D2 D3 0 N017 0 OR Vhigh=2.5, Vlow=0.4, Ref=1.15 Trise=1.5e-9, Td=6e-9, Cout=3e-12
+V3 -5V 0 -5V
+V4 3.3V 0 3.3
+C17 0 Comp_Vs+ 10n
+C18 Comp_Vs+ 0 3µ
+V5 N003 0 0.15
+XU5 PS_Out N009 Comp_Vs+ 0 N005 LT1720
+V6 N009 0 0.35
+XU6 PS_Out N014 Comp_Vs+ 0 N013 LT1720
+V7 N014 0 0.85
+XU7 PS_Out N016 Comp_Vs+ 0 N015 LT1720
+V8 N016 0 2.85
+A1 3.3V 0 N002 0 CLR 0 D0 0 DFLOP Vhigh=2.4, Vlow=0.4, Ref=2 Trise=1.2e-9, Td=6e-9
+A2 3.3V 0 N005 0 CLR 0 D1 0 DFLOP Vhigh=2.4, Vlow=0.4, Ref=2 Trise=1.2e-9, Td=6e-9
+A3 3.3V 0 N013 0 CLR 0 D2 0 DFLOP Vhigh=2.4, Vlow=0.4, Ref=2 Trise=1.2e-9, Td=6e-9
+A4 3.3V 0 N015 0 CLR 0 D3 0 DFLOP Vhigh=2.4, Vlow=0.4, Ref=2 Trise=1.2e-9, Td=6e-9
+A8 EXTI 0 0 0 0 0 ISR_entry 0 BUF Vhigh=4.9, Vlow=-0.4, Ref=1.9 Trise=1e-15, Td=375e-9
+A10 R+S_0 0 0 0 0 0 R+S_1 0 BUF Vhigh=3.3, Vlow=0.0, Ref=1e-6 Trise=0,Td=31.25e-9
+S1 3.3V CLR CLR_H CLR_L SW
+R11 CLR 0 1
+A9 ISR_entry 0 0 0 0 0 R+S_0 0 BUF Vhigh=3.3, Vlow=0.0, Ref=1e-6 Trise=0, Td=31.25e-9
+A11 Timestamp 0 0 0 0 0 CLR_H 0 BUF Vhigh=3.3, Vlow=0.0, Ref=1e-6 Trise=10e-9, Td=31.25e-9
+A12 CLR_H 0 0 0 0 0 CLR_L 0 BUF Vhigh=3.3, Vlow=0.0, Ref=1.9 Trise=10e-9, Td=31.25e-9
+A13 CLR_L 0 0 0 0 0 ISR_Exit 0 BUF Vhigh=4.9, Vlow=-0.4, Ref=1.9 Trise=0, Td=312.5e-9
+A6 N017 N017 N017 N017 N017 0 EXTI 0 OR Vhigh=2.5, Vlow=0.4, Ref=1.15 Trise=1.5e-9, Td=6e-9, Cout=3e-12
+A14 R+S_1 0 0 0 0 0 R+S_2 0 BUF Vhigh=3.3, Vlow=0.0, Ref=1e-6 Trise=0,Td=31.25e-9
+A16 R+S_2 0 0 0 0 0 R+S_3 0 BUF Vhigh=3.3, Vlow=0.0, Ref=1e-6 Trise=0,Td=31.25e-9
+A17 R+S_3 0 0 0 0 0 Timestamp 0 BUF Vhigh=3.3, Vlow=0.0, Ref=1e-6 Trise=0,Td=31.25e-9
+.tran 0 1e-6 0 1e-9
+.model SW SW(Ron=1e-15, Vt=1.9, Vh=0.1)
+.lib D:\SlugSat\GitHub\COVID-19-Simulations\SE\Radiation_Detector\Combined_Waveforms\pC ~ OPA855 ~ 20 ns\Parts\MAX4223\max4223.fam
+.lib LTC.lib
+.backanno
+.end

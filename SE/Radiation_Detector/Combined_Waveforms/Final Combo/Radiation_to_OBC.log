@@ -1,6 +1,6 @@
 Circuit: * D:\SlugSat\GitHub\COVID-19-Simulations\SE\Radiation_Detector\Combined_Waveforms\Final Combo\Radiation_to_OBC.asc
 
-WARNING: Node N006 is floating.
+WARNING: Node N007 is floating.
 
 WARNING: Less than two connections to node ISR_EXIT.  This node is used by A13.
 Direct Newton iteration failed to find .op point.  (Use ".option noopiter" to skip.)
@@ -23,26 +23,28 @@ Gmin = 2.70769e-013
 Gmin = 0
 Gmin stepping succeeded in finding the operating point.
 
-Heightened Def Con from 5.09971e-010 to 5.09971e-010
-Heightened Def Con from 1.21726e-009 +to 1.21726e-009
-Heightened Def Con from 1.21726e-009 +to 1.21726e-009
-Heightened Def Con from 1.41357e-009 +to 1.41357e-009
+Heightened Def Con from 1.59937e-012 +to 1.59937e-012
+Heightened Def Con from 1.59937e-012 to 1.59937e-012
+Heightened Def Con from 2.90966e-010 to 2.90966e-010
+Heightened Def Con from 5.53088e-009 to 5.53088e-009
+Heightened Def Con from 5.53088e-009 to 5.53088e-009
+Heightened Def Con from 5.72832e-009 to 5.72832e-009
 
-Date: Fri Jun 05 20:27:06 2020
-Total elapsed time: 1.363 seconds.
+Date: Mon Jun 08 09:56:06 2020
+Total elapsed time: 1.216 seconds.
 
 tnom = 27
 temp = 27
 method = modified trap
-totiter = 13834
-traniter = 13251
-tranpoints = 3227
-accept = 2541
-rejected = 693
+totiter = 14150
+traniter = 13567
+tranpoints = 3292
+accept = 2575
+rejected = 724
 matrix size = 181
 fillins = 163
 solver = Normal
-Thread vector: 63.5/32.8[8] 23.2/13.6[8] 29.0/11.0[8] 1.1/11.2[1]  2592/500
-Matrix Compiler1: 17.45 KB object code size  8.9/5.1/[1.8]
-Matrix Compiler2: 18.09 KB object code size  5.5/6.8/[1.4]
+Thread vector: 61.7/29.2[8] 21.0/13.4[8] 11.3/5.3[8] 1.5/6.7[1]  2592/500
+Matrix Compiler1: 17.45 KB object code size  8.5/4.9/[1.9]
+Matrix Compiler2: 18.09 KB object code size  5.3/9.3/[1.7]
 
