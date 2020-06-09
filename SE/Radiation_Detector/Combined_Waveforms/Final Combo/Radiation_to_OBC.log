@@ -23,28 +23,28 @@ Gmin = 2.70769e-013
 Gmin = 0
 Gmin stepping succeeded in finding the operating point.
 
-Heightened Def Con from 1.59937e-012 +to 1.59937e-012
-Heightened Def Con from 1.59937e-012 to 1.59937e-012
-Heightened Def Con from 2.90966e-010 to 2.90966e-010
-Heightened Def Con from 5.53088e-009 to 5.53088e-009
-Heightened Def Con from 5.53088e-009 to 5.53088e-009
-Heightened Def Con from 5.72832e-009 to 5.72832e-009
+Heightened Def Con from 5.97505e-010 to 5.97505e-010
+Heightened Def Con from 7.06258e-010 ++to 7.06258e-010
+Heightened Def Con from 7.72453e-010 to 7.72453e-010
+Heightened Def Con from 4.80227e-009 to 4.80227e-009
+Heightened Def Con from 5.26739e-009 to 5.26739e-009
+Heightened Def Con from 5.26739e-009 to 5.26739e-009
 
-Date: Mon Jun 08 09:56:06 2020
-Total elapsed time: 1.216 seconds.
+Date: Mon Jun 08 15:08:13 2020
+Total elapsed time: 1.498 seconds.
 
 tnom = 27
 temp = 27
 method = modified trap
-totiter = 14150
-traniter = 13567
-tranpoints = 3292
-accept = 2575
-rejected = 724
+totiter = 15483
+traniter = 14900
+tranpoints = 3542
+accept = 2748
+rejected = 802
 matrix size = 181
 fillins = 163
 solver = Normal
-Thread vector: 61.7/29.2[8] 21.0/13.4[8] 11.3/5.3[8] 1.5/6.7[1]  2592/500
-Matrix Compiler1: 17.45 KB object code size  8.5/4.9/[1.9]
-Matrix Compiler2: 18.09 KB object code size  5.3/9.3/[1.7]
+Thread vector: 60.5/28.3[8] 20.9/12.9[8] 11.2/7.8[7] 1.1/10.3[1]  2592/500
+Matrix Compiler1: 17.45 KB object code size  8.4/4.7/[1.6]
+Matrix Compiler2: 18.09 KB object code size  5.3/6.0/[2.6]
 
